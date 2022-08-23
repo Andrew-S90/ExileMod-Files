@@ -1,0 +1,332 @@
+/*%FSM<COMPILE "scriptedFSM.cfg, Exile_Animal_Hen.fsm">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Spawned",0,250,550.000000,1850.000000,650.000000,1900.000000,0.000000,"Spawned"};
+item1[] = {"Died",4,218,550.000000,2150.000000,650.000000,2200.000000,0.000000,"Died"};
+item2[] = {"End",1,250,550.000000,2250.000000,650.000000,2300.000000,0.000000,"End"};
+item3[] = {"Continue",8,218,700.000000,1850.000000,800.000000,1900.000000,0.000000,"Continue"};
+item4[] = {"Roam",2,250,850.000000,1850.000000,950.000000,1900.000000,0.000000,"Roam"};
+item5[] = {"Completed",4,218,850.000000,1950.000000,950.000000,2000.000000,2.000000,"Completed"};
+item6[] = {"Got_scared",4,218,850.000000,1650.000000,950.000000,1700.000000,1.000000,"Got scared"};
+item7[] = {"Flee",2,4346,1000.000000,1650.000000,1100.000000,1700.000000,0.000000,"Flee"};
+item8[] = {"Finished",4,218,1150.000000,1650.000000,1250.000000,1700.000000,0.000000,"Finished"};
+item9[] = {"Decide",2,250,1150.000000,1750.000000,1250.000000,1800.000000,0.000000,"Decide"};
+item10[] = {"Still_scared",4,218,1000.000000,1750.000000,1100.000000,1800.000000,1.000000,"Still scared"};
+item11[] = {"Not_scared__anym",4,218,1150.000000,1850.000000,1250.000000,1900.000000,2.000000,"Not scared " \n "anymore"};
+item12[] = {"Decide_1",2,250,850.000000,2050.000000,950.000000,2100.000000,0.000000,"Decide"};
+item13[] = {"Players_are_near",4,218,1000.000000,1950.000000,1100.000000,2000.000000,1.000000,"Players" \n "are nearby"};
+item14[] = {"No_players_nearb",4,218,850.000000,2150.000000,950.000000,2200.000000,2.000000,"No players" \n "nearby"};
+item15[] = {"Despawn",2,250,850.000000,2250.000000,950.000000,2300.000000,0.000000,"Despawn"};
+item16[] = {"Continue",8,218,700.000000,2250.000000,800.000000,2300.000000,0.000000,"Continue"};
+item17[] = {"____FAKE____",9,152,0.000000,5135053892148252000000000000000000.000000,0.000000,5135053892148252000000000000000000.000000,0.000000,"____FAKE____"};
+link0[] = {0,3};
+link1[] = {1,2};
+link2[] = {3,4};
+link3[] = {4,5};
+link4[] = {4,6};
+link5[] = {5,12};
+link6[] = {6,7};
+link7[] = {7,8};
+link8[] = {8,9};
+link9[] = {9,10};
+link10[] = {9,11};
+link11[] = {10,7};
+link12[] = {11,4};
+link13[] = {12,13};
+link14[] = {12,14};
+link15[] = {13,4};
+link16[] = {14,15};
+link17[] = {15,16};
+link18[] = {16,2};
+link19[] = {17,1};
+globals[] = {0.000000,0,0,0,0,640,480,1,580,6316128,1,286.230804,1412.655518,2399.368896,1578.017578,1248,910,1};
+window[] = {2,-1,-1,-1,-1,838,104,1398,104,3,1266};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "Exile_Animal_Hen.fsm";
+        class States
+        {
+                /*%FSM<STATE "Spawned">*/
+                class Spawned
+                {
+                        name = "Spawned";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"_animalConfig = configFile >> ""CfgVehicles"" >> typeOf _agent >> ""Exile"";" \n
+                         "" \n
+                         "doStop _agent;" \n
+                         ""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Continue">*/
+                                class Continue
+                                {
+                                        itemno = 3;
+                                        priority = 0.000000;
+                                        to="Roam";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "End">*/
+                class End
+                {
+                        name = "End";
+                        itemno = 2;
+                        init = /*%FSM<STATEINIT""">*/"//diag_log ""ANIMAL DIEDED!"";"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Roam">*/
+                class Roam
+                {
+                        name = "Roam";
+                        itemno = 4;
+                        init = /*%FSM<STATEINIT""">*/"//systemChat ""roaming"";" \n
+                         "" \n
+                         "" \n
+                         "// Play an idle sound every now and then" \n
+                         "_nextIdleSoundAt = _agent getVariable [""NextIdleSoundAt"", -1];" \n
+                         "" \n
+                         "if (time >= _nextIdleSoundAt) then" \n
+                         "{" \n
+                         "  _idleSound = selectRandom (getArray (_animalConfig >> ""idleSounds""));" \n
+                         "  " \n
+                         "  playSound3D [_idleSound select 0, _agent, false, getPosASL _agent, _idleSound select 2, 1, _idleSound select 1];" \n
+                         "" \n
+                         "//systemchat ""idle noise"";" \n
+                         "" \n
+                         "  _agent setVariable [""NextIdleSoundAt"", time + 30 + (random 120)];" \n
+                         "};" \n
+                         "" \n
+                         "// Find a random position and move there" \n
+                         "// TODO: Optimize to find only positions that are free and not underwater" \n
+                         "_targetPosition = [getPos _agent, 10] call ExileClient_util_math_getRandomPositionInCircle;" \n
+                         "" \n
+                         "// Switch to chiled move" \n
+                         "_agent playMoveNow (getText (_animalConfig >> ""idleMove""));" \n
+                         "" \n
+                         "// Move to target position" \n
+                         "_agent moveTo _targetPosition;" \n
+                         ""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Completed">*/
+                                class Completed
+                                {
+                                        itemno = 5;
+                                        priority = 2.000000;
+                                        to="Decide_1";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(moveToCompleted _agent) || (moveToFailed _agent)"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/"//systemchat ""move completed"";"/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Got_scared">*/
+                                class Got_scared
+                                {
+                                        itemno = 6;
+                                        priority = 1.000000;
+                                        to="Flee";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(_agent getVariable [""IsScared"", false])"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/"// In the hope this cancels the previous moveTo()" \n
+                                         "doStop _agent;" \n
+                                         "" \n
+                                         "systemchat ""got scared"";"/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Flee">*/
+                class Flee
+                {
+                        name = "Flee";
+                        itemno = 7;
+                        init = /*%FSM<STATEINIT""">*/"// Scream if we have not done that in the last 20 seconds" \n
+                         "_lastScreamAt = _agent getVariable [""LastDangerSoundAt"", -1];" \n
+                         "_timeSinceLastScream = time - _lastScreamAt;" \n
+                         "" \n
+                         "//systemchat ""fleeing"";" \n
+                         "" \n
+                         "if (_timeSinceLastScream > 20) then" \n
+                         "{" \n
+                         "" \n
+                         "//systemchat ""screaming"";" \n
+                         "  // Play a random danger sound" \n
+                         "  _dangerSound = selectRandom (getArray (_animalConfig >> ""dangerSounds""));" \n
+                         "  " \n
+                         "  playSound3D [_dangerSound select 0, _agent, false, getPosASL _agent, _dangerSound select 2, 1, _dangerSound select 1];" \n
+                         "" \n
+                         "  _agent setVariable [""LastDangerSoundAt"", time];" \n
+                         "};" \n
+                         "" \n
+                         "// Find the agressor and run away from it" \n
+                         "_aggressor = _agent getVariable [""Aggressor"", _agent];" \n
+                         "" \n
+                         "// TODO: Optimize this. Find a more logical position" \n
+                         "_fleeDistance = 10 + (random 10);" \n
+                         "_direction = [_aggressor, _agent] call BIS_fnc_dirTo;" \n
+                         "_targetPosition = [getPos _agent, _fleeDistance, _direction] call ExileClient_util_math_getPositionInDirection;" \n
+                         "" \n
+                         "// Let the animal ruuuuuuuuun" \n
+                         "_agent playMoveNow (getText (_animalConfig >> ""fleeMove""));" \n
+                         "" \n
+                         "// Let the animal move to the desired position" \n
+                         "_agent moveTo _targetPosition;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Finished">*/
+                                class Finished
+                                {
+                                        itemno = 8;
+                                        priority = 0.000000;
+                                        to="Decide";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(moveToCompleted _agent) || (moveToFailed _agent)"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/"//systemchat ""fleeing move completed"";"/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Decide">*/
+                class Decide
+                {
+                        name = "Decide";
+                        itemno = 9;
+                        init = /*%FSM<STATEINIT""">*/"// Be scared, be very scared" \n
+                         "// But only for a minute" \n
+                         "_timeBeingScared = time - (_agent getVariable [""ScaredAt"", 0]);" \n
+                         "_isStillScared = _timeBeingScared < 60;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Not_scared__anym">*/
+                                class Not_scared__anym
+                                {
+                                        itemno = 11;
+                                        priority = 2.000000;
+                                        to="Roam";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!_isStillScared"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/"_agent setVariable [""IsScared"", false];" \n
+                                         "_agent setVariable [""ScaredAt"", nil];" \n
+                                         "_agent setVariable [""Aggressor"", nil];" \n
+                                         "" \n
+                                         "//systemchat ""not scared anymore"";"/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Still_scared">*/
+                                class Still_scared
+                                {
+                                        itemno = 10;
+                                        priority = 1.000000;
+                                        to="Flee";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_isStillScared"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/"//systemchat ""still scared"";"/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Decide_1">*/
+                class Decide_1
+                {
+                        name = "Decide_1";
+                        itemno = 12;
+                        init = /*%FSM<STATEINIT""">*/"_arePlayersNearby = [_agent, 500] call ExileClient_util_world_isAlivePlayerInRange;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "No_players_nearb">*/
+                                class No_players_nearb
+                                {
+                                        itemno = 14;
+                                        priority = 2.000000;
+                                        to="Despawn";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!_arePlayersNearby"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/"//systemchat ""no players nearby, despawning"";"/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Players_are_near">*/
+                                class Players_are_near
+                                {
+                                        itemno = 13;
+                                        priority = 1.000000;
+                                        to="Roam";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_arePlayersNearby"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/"//systemChat ""players are nearby, continueing roaming"";"/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Despawn">*/
+                class Despawn
+                {
+                        name = "Despawn";
+                        itemno = 15;
+                        init = /*%FSM<STATEINIT""">*/"deleteVehicle _agent;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Continue">*/
+                                class Continue
+                                {
+                                        itemno = 16;
+                                        priority = 0.000000;
+                                        to="End";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "____FAKE____">*/
+                class ____FAKE____
+                {
+                        name = "____FAKE____";
+                        itemno = 17;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Died">*/
+                                class Died
+                                {
+                                        itemno = 1;
+                                        priority = 0.000000;
+                                        to="End";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!(alive _agent) || (isNull _agent)"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="Spawned";
+        finalStates[] =
+        {
+                "End",
+        };
+};
+/*%FSM</COMPILE>*/

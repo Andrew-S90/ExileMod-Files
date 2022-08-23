@@ -1,0 +1,7 @@
+///<'exile_client.pbo' properties via Mikero's dos tools, dll version 6.94>///
+prefix=exile_client
+Mikero=DePbo.dll
+version=00000000
+//Pbo Type is: Arma Addon
+//Sha: '83DE19C901829FB99CFAAD308AD53EC43E7EFDE1'
+//////</properties>//////

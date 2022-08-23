@@ -1,0 +1,122 @@
+////////////////////////////////////////////////////////////////////
+//DeRap: exile_client\missions\ExileIntro.VR\mission.sqm
+//Produced from mikero's Dos Tools Dll version 6.94
+//https://armaservices.maverick-applications.com/Products/MikerosDosTools/default
+//'now' is Tue Aug 23 13:31:18 2022 : 'file' last modified on Tue Aug 23 11:37:47 2022
+////////////////////////////////////////////////////////////////////
+
+#define _ARMA_
+
+version = 12;
+class Mission
+{
+	addOns[] = {"exile_client","map_vr"};
+	addOnsAuto[] = {"exile_client","map_vr"};
+	randomSeed = 7299091;
+	class Intel
+	{
+		startWeather = 0;
+		startWind = 0.099999994;
+		startWaves = 0.099999994;
+		forecastWeather = 0;
+		forecastWind = 0.099999994;
+		forecastWaves = 0.099999994;
+		forecastLightnings = 0.099999994;
+		year = 2035;
+		day = 28;
+		hour = 12;
+		minute = 0;
+		startFogDecay = 0.005;
+		forecastFogDecay = 0.005;
+	};
+};
+class Intro
+{
+	addOns[] = {"map_vr","exile_client"};
+	addOnsAuto[] = {"map_vr","exile_client"};
+	randomSeed = 10040778;
+	class Intel
+	{
+		startWeather = 0;
+		startWind = 0.099999994;
+		startWaves = 0.099999994;
+		forecastWeather = 0;
+		forecastWind = 0.099999994;
+		forecastWaves = 0.099999994;
+		forecastLightnings = 0.099999994;
+		year = 2035;
+		day = 28;
+		hour = 12;
+		minute = 0;
+		startFogDecay = 0.005;
+		forecastFogDecay = 0.005;
+	};
+	class Groups
+	{
+		items = 1;
+		class Item0
+		{
+			side = "GUER";
+			class Vehicles
+			{
+				items = 1;
+				class Item0
+				{
+					position[] = {3539.3413,5,4380.383};
+					id = 0;
+					side = "GUER";
+					vehicle = "Exile_Unit_Player";
+					player = "PLAYER COMMANDER";
+					leader = 1;
+					skill = 0.6;
+				};
+			};
+		};
+	};
+};
+class OutroWin
+{
+	addOns[] = {"map_vr"};
+	addOnsAuto[] = {"map_vr"};
+	randomSeed = 6156484;
+	class Intel
+	{
+		timeOfChanges = 1800.0002;
+		startWeather = 0;
+		startWind = 0.1;
+		startWaves = 0.1;
+		forecastWeather = 0;
+		forecastWind = 0.1;
+		forecastWaves = 0.1;
+		forecastLightnings = 0.1;
+		year = 2035;
+		day = 28;
+		hour = 13;
+		minute = 37;
+		startFogDecay = 0.005;
+		forecastFogDecay = 0.005;
+	};
+};
+class OutroLoose
+{
+	addOns[] = {"map_vr"};
+	addOnsAuto[] = {"map_vr"};
+	randomSeed = 8863317;
+	class Intel
+	{
+		timeOfChanges = 1800.0002;
+		startWeather = 0;
+		startWind = 0.1;
+		startWaves = 0.1;
+		forecastWeather = 0;
+		forecastWind = 0.1;
+		forecastWaves = 0.1;
+		forecastLightnings = 0.1;
+		year = 2035;
+		day = 28;
+		hour = 13;
+		minute = 37;
+		startFogDecay = 0.005;
+		forecastFogDecay = 0.005;
+	};
+};

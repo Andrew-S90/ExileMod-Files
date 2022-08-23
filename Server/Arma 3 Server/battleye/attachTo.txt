@@ -1,0 +1,3 @@
+//new
+7 "" !"NVG_TargetG" !"Shot" !"Exile_Unit_Player"
+1 "Exile_Unit_Player"
